@@ -41,7 +41,7 @@ function drawGraph() {
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       isWhite = !isWhite;
     }
-    isWhite = !isWhite;  //flip boolean in between rows
+    isWhite = !isWhite;
   }
 }
 
