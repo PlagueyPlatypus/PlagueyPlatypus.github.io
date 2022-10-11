@@ -27,6 +27,6 @@ function keyPressed() {
     scalar = scalar * 1.5;
   }
   else if (keyCode === DOWN_ARROW){
-    scalar = scalar *0.5
+    scalar = scalar *0.5;
   }
 }

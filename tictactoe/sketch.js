@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let state = "start";
+let state = "x";
 let xImg;
 let oImg;
 
@@ -20,6 +20,9 @@ function windowResized() {
 function draw() {
   background("white");
   drawGraph();
+  if (state === "x") {
+    drawCounter();
+  }
 }
 
 function drawGraph() {
@@ -45,3 +48,6 @@ function drawGraph() {
   }
 }
 
+function drawCounter() {
+
+}
