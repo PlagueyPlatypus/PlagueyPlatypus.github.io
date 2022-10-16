@@ -5,9 +5,18 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let state = "x";
-let xImg;
-let oImg;
+const PLAYER_X_CLASS = 'x'
+const PLAYER_O_CLASS = 'circle'
+const WINNING_COMBINATIONS = [
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6]
+]
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -46,8 +55,4 @@ function drawGraph() {
     }
     isWhite = !isWhite;
   }
-}
-
-function drawCounter() {
-
 }
