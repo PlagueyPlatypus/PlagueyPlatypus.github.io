@@ -8,8 +8,8 @@
 
 let x = 0;
 let y = 0;
-let dx = 25;
-let dy = 20;
+let dx = 5;
+let dy = 3;
 let squareSize = 50;
 let squareColor;
 
