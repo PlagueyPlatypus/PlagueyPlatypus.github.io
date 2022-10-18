@@ -5,9 +5,9 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const PLAYER_X_CLASS = 'x'
-const PLAYER_O_CLASS = 'circle'
-const WINNING_COMBINATIONS = [
+const playerX = "x"
+const playerO = "o"
+const wins = [
 	[0, 1, 2],
 	[3, 4, 5],
 	[6, 7, 8],
