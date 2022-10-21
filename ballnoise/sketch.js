@@ -1,23 +1,14 @@
-// Perkinn Noise demo
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
-
-let allCircles = []
-let x;
-let y;
-let radius;
-let time = 0;
+let allCircles = [];
 
 function keyPressed() {
-  let ball = {
+  let theBall = {
     x: random(width),
     y: random(height),
     radius: random(50, 100),
-    time: random(3000)
+    time: random(5000),
+    theColor: color(random(255), random(255), random(255)),
   };
+  allCircles.push(theBall);
 }
 
 function setup() {
@@ -25,15 +16,17 @@ function setup() {
 }
 
 function draw() {
-  background(220);
-  fill(allCircles[i].("black"));
-
+  background(0);
+  
   for (let i = 0; i < allCircles.length; i++) {
-    allCircles[i].x = noise(time + 1000) * width;
-    allCircles[i].y = noise(time + 5000) * height;
-
-    // increase time along noise
+    allCircles[i].x = noise(allCircles[i].time) * width;
+    allCircles[i].y = noise(allCircles[i].time + 5000) * height;
+    
+    //increase time along noise
     allCircles[i].time += 0.01;
-    circle(allCircles[i], allCircles[i].y, allCircles[i].radius);
+    
+    fill(allCircles[i].theColor);
+    circle(allCircles[i].x, allCircles[i].y, allCircles[i].radius*2);
   }
+
 }
