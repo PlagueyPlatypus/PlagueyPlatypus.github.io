@@ -1,6 +1,6 @@
 let allCircles = [];
 
-function keyPressed() {
+function mousePressed() {
   let theBall = {
     x: random(width),
     y: random(height),
@@ -17,7 +17,6 @@ function setup() {
 
 function draw() {
   background(0);
-  
   for (let i = 0; i < allCircles.length; i++) {
     allCircles[i].x = noise(allCircles[i].time) * width;
     allCircles[i].y = noise(allCircles[i].time + 5000) * height;
