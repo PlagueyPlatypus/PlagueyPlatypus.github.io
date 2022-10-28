@@ -6,8 +6,8 @@
 // - describe what you did to take this project "above and beyond"
 
 let grid = [[1, 0, 1],
-            [1, 0, 1],
-            [0, 1, 0]];
+  [1, 0, 1],
+  [0, 1, 0]];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
