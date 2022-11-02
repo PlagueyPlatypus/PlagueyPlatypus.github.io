@@ -7,16 +7,16 @@ let startingLocation = 0;
 let time;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 789);
   theHeights = generateHeights(20000);
 }
 
 function draw() {
   background("white");
   for (let i = startingLocation; i < startingLocation + width; i++) {
-    displayRectangle(i-startingLocation, theHeights[i], 100);
+    displayRectangle(i-startingLocation, theHeights[i], 1);
   }
-  startingLocation += 1;
+  startingLocation += 5;
 }
 
 function displayRectangle(x, rectHeight, rectWidth) {
@@ -29,7 +29,7 @@ function generateHeights(howMany) {
   let time = random(10000);
   for (let i = 0; i < howMany; i++) {
     tempArray.push(noise(time) * height);
-    time += 1;
+    time += 0.0001;
   }
   return tempArray;
 }
