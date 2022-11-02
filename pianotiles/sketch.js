@@ -7,7 +7,7 @@ let startingLocation = 0;
 let time;
 
 function setup() {
-  createCanvas(600, 789);
+  createCanvas(700, 789);
   theHeights = generateHeights(20000);
 }
 
