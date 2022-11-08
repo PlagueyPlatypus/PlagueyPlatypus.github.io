@@ -5,91 +5,119 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const PLAYER_X_CLASS = "x";
-const PLAYER_O_CLASS = "o";
-const WINNING_COMBINATIONS = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
+let grid = [
+  [" ", " ", " "],
+  [" ", " ", " "],
+  [" ", " ", " "],
 ];
 
-const cellElements = document.querySelectorAll("[data-cell]");
-const boardElement = document.getElementById("board");
-const winningMessageElement = document.getElementById("winningMessage");
-const restartButton = document.getElementById("restartButton");
-const winningMessageTextElement = document.getElementById("winningMessageText");
-let isPlayer_O_Turn = false;
+let players = ["X", "O"];
 
-startGame();
+let playerTurn;
+let empty = [];
 
-restartButton.addEventListener("click", startGame);
-
-function startGame() {
-  isPlayer_O_Turn = false;
-  cellElements.forEach(cell => {
-    cell.classList.remove(PLAYER_X_CLASS);
-    cell.classList.remove(PLAYER_O_CLASS);
-    cell.removeEventListener("click", handleCellClick);
-    cell.addEventListener("click", handleCellClick, { once: true });
-  });
-  setBoardHoverClass();
-  winningMessageElement.classList.remove("show");
-}
-
-function handleCellClick(e) {
-  const cell = e.target;
-  const currentClass = isPlayer_O_Turn ? PLAYER_O_CLASS : PLAYER_X_CLASS;
-  placeMark(cell, currentClass);
-  if (checkWin(currentClass)) {
-    endGame(false);
-  } 
-  else if (isDraw()) {
-    endGame(true);
-  }
-  else {
-    swapTurns();
-    setBoardHoverClass();
+function setup() {
+  createCanvas(windowWidth, windowHeight - 100);
+  playerTurn = floor(random(players.length));
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      empty.push([x, y]);
+    }
   }
 }
 
-function endGame() {
-
+function equals3(a, b, c) {
+  return (a == b && b == c && a != " ");
 }
 
-function isDraw() {
-  return [...cellElements].every(cell => {
-    return cell.classList.contains(PLAYER_X_CLASS) || cell.classList.contains(PLAYER_O_CLASS);
-  });
-}
+function checkWinner() {
+  let winner = null;
 
-function placeMark(cell, currentClass) {
-  cell.classList.add(currentClass);
-}
-
-function swapTurns() {
-  isPlayer_O_Turn = !isPlayer_O_Turn;
-}
-
-function setBoardHoverClass() {
-  boardElement.classList.remove(PLAYER_X_CLASS);
-  boardElement.classList.remove(PLAYER_O_CLASS);
-  if (isPlayer_O_Turn) {
-    boardElement.classList.add(PLAYER_O_CLASS);
-  } 
-  else {
-    boardElement.classList.add(PLAYER_X_CLASS);
+  //Horizontal
+  for (let i = 0; i < 3; i++) {
+    if (equals3(grid[i][0], grid[i][1], grid[i][2])) {
+      winner = grid[i][0];
+    }
   }
+
+  //Vertical
+  for (let i = 0; i < 3; i++) {
+    if (equals3(grid[0][i], grid[1][i], grid[2][i])) {
+      winner = grid[0][i];
+    }
+  }
+
+  //Diagonal
+  if (equals3(grid[0][0], grid[1][1], grid[2][2])) {
+    winner = grid[0][0];
+  }
+  if (equals3(grid[2][0], grid[1][1], grid[0][2])) {
+    winner = grid[2][0];
+  }
+
+  if (winner == null && empty.length == 0) {
+    return "tie";
+  } else {
+    return winner;
+  }
+
 }
 
-function checkWin(currentClass) {
-  return WINNING_COMBINATIONS.some(combination => {
-    return combination.every(index => {
-      return cellElements[index].classList.contains(currentClass);
-    });
-  });
+function nextTurn() {
+  let index = floor(random(empty.length));
+  let spot = empty.splice(index, 1)[0];
+  let i = spot[0];
+  let j = spot[1];
+  grid[i][j] = players[playerTurn];
+  playerTurn = (playerTurn + 1) % players.length;
+}
+
+// function mousePressed() {
+//   nextTurn(); 
+// }
+
+function draw() {
+  background(255);
+  let w = width / 3;
+  let h = height / 3;
+  strokeWeight(4);
+
+  //Lines For the Grid
+  line(w, 0, w, height);
+  line(w * 2, 0, w * 2, height);
+  line(0, h, width, h);
+  line(0, h * 2, width, h * 2);
+
+  for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < 3; i++) {
+      let x = w * i + w / 2;
+      let y = h * j + h / 2;
+      let spot = grid[i][j];
+      textSize(32);
+      if (spot == players[1]) {
+        noFill();
+        ellipse(x, y, w / 2);
+      } else if (spot == players[0]) {
+        let xr = w / 4;
+        line(x - xr, y - xr, x + xr, y + xr);
+        line(x + xr, y - xr, x - xr, y + xr);
+      }
+
+    }
+  }
+
+  let result = checkWinner();
+  if (result != null) {
+    noLoop();
+    let resultP = createP(" ");
+    resultP.style("font-size", "32pt");
+    if (result == "tie") {
+      resultP.html("Tie!")
+    } else {
+      resultP.html(`${result} wins!`);
+    }
+  } else {
+    nextTurn();
+  }
+
 }
