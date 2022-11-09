@@ -27,7 +27,7 @@ function setup() {
 }
 
 function equals3(a, b, c) {
-  return (a == b && b == c && a != " ");
+  return a === b && b === c && a !== " ";
 }
 
 function checkWinner() {
@@ -55,9 +55,10 @@ function checkWinner() {
     winner = grid[2][0];
   }
 
-  if (winner == null && empty.length == 0) {
+  if (winner === null && empty.length === 0) {
     return "tie";
-  } else {
+  } 
+  else {
     return winner;
   }
 
@@ -94,10 +95,11 @@ function draw() {
       let y = h * j + h / 2;
       let spot = grid[i][j];
       textSize(32);
-      if (spot == players[1]) {
+      if (spot === players[1]) {
         noFill();
         ellipse(x, y, w / 2);
-      } else if (spot == players[0]) {
+      } 
+      else if (spot === players[0]) {
         let xr = w / 4;
         line(x - xr, y - xr, x + xr, y + xr);
         line(x + xr, y - xr, x - xr, y + xr);
@@ -107,16 +109,18 @@ function draw() {
   }
 
   let result = checkWinner();
-  if (result != null) {
+  if (result !== null) {
     noLoop();
     let resultP = createP(" ");
     resultP.style("font-size", "32pt");
-    if (result == "tie") {
-      resultP.html("Tie!")
-    } else {
+    if (result === "tie") {
+      resultP.html("Tie!");
+    } 
+    else {
       resultP.html(`${result} wins!`);
     }
-  } else {
+  } 
+  else {
     nextTurn();
   }
 

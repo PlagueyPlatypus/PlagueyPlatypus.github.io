@@ -2,34 +2,41 @@
 // Sadique
 // Oct 21, 2022
 
-let theHeights = [];
+let tiles = [];
 let startingLocation = 0;
 let time;
+let lineWidth = 3;
+
+let piano = [
+  [" ", " ", " ", " "],
+  [" ", " ", " ", " "],
+  [" ", " ", " ", " "],
+  [" ", " ", " ", " "]
+];
+
+function columns() {
+  let w = width / 4 ;
+  strokeWeight(lineWidth);
+  line(lineWidth, 0, lineWidth, height);
+  line(w * 1, 0, w * 1, height);
+  line(w * 2, 0, w * 2, height);
+  line(w * 3, 0, w * 3, height);
+  line(width - lineWidth, 0, width - lineWidth, height);
+}
 
 function setup() {
-  createCanvas(700, 789);
-  theHeights = generateHeights(20000);
+  let canvas = createCanvas(windowWidth/2, windowHeight);
+  canvas.center("horizontal");
+  columns();
+  tiles.push(spawnTile(100, 100));
 }
 
-function draw() {
-  background("white");
-  for (let i = startingLocation; i < startingLocation + width; i++) {
-    displayRectangle(i-startingLocation, theHeights[i], 1);
-  }
-  startingLocation += 5;
-}
-
-function displayRectangle(x, rectHeight, rectWidth) {
-  let y = height - rectHeight;
-  rect(x, y, rectWidth, rectHeight);
-}
-
-function generateHeights(howMany) {
-  let tempArray = [];
-  let time = random(10000);
-  for (let i = 0; i < howMany; i++) {
-    tempArray.push(noise(time) * height);
-    time += 0.0001;
-  }
-  return tempArray;
+function spawnTile(tempX, tempY) {
+  let newTile = {
+    y: tempY,
+    radius: random(25, 100),
+    dy: (0, -5),
+    theColor: color(0)
+  };
+  return newTile;
 }
