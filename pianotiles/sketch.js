@@ -29,6 +29,7 @@ function setup() {
   canvas.center("horizontal");
   columns();
   tiles.push(spawnTile(100, 100));
+  //gameOver();
 }
 
 function spawnTile(tempX, tempY) {
@@ -40,3 +41,14 @@ function spawnTile(tempX, tempY) {
   };
   return newTile;
 }
+
+function gameOver() {
+  noLoop();
+  fill(0);
+  textAlign(CENTER);
+  textSize(100);
+  text("Try Again!", width / 2, height / 2);
+}
+
+//https://www.youtube.com/watch?v=1Izg1eHFsUw
+//https://www.youtube.com/watch?v=554VpvX2m4E

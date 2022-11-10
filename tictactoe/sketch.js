@@ -114,7 +114,7 @@ function draw() {
     let resultP = createP(" ");
     resultP.style("font-size", "32pt");
     if (result === "tie") {
-      resultP.html("Tie!");
+      resultP.text("Tie!");
     } 
     else {
       resultP.html(`${result} wins!`);
