@@ -29,7 +29,7 @@ function setup() {
   canvas.center("horizontal");
   columns();
   tiles.push(spawnTile(100, 100));
-  //gameOver();
+  gameOver();
 }
 
 function spawnTile(tempX, tempY) {
