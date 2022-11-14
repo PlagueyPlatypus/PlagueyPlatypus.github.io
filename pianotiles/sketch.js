@@ -6,109 +6,73 @@ let w = 0;
 let h = 0;
 
 class Tile{
-  constructor(lane,w,h){
-    this.lane= lane;
-    this.t=w;
-    this.w = w/4 - 2;
-    this.h = h/5;
-    this.x = 1 + this.lane*w/4;
-    this.y = 0;
-    // this.speed = 10;
-    // this.once = true;
-    // this.trolled = false;
+  constructor(lane){
+    this.lane = lane;
+    this.w = w/4 - 20; 
+    this.h = h/4;
+    this.X = 10 + this.lane * w/4;
+    this.y = -2; 
+    this.speed = 5;
   }
 
   show() {
-    push();
-      translate(this.x, this.y);
-      rectMode(CENTER);
-      rect(this.w/2,this.h/2,r*this.w,r*this.h+a);
-    pop();
+    push() ;
+    translate(this.X, this.y);
+    rectMode(CENTER);
+    rect(this.w/2, this.h/2, this.w, this.h);
+  }
+
+  move() {
+    this.y += this.speed;
+  }
+
+  arrive() {
+    return this.y > -this.h;
+  }
+
+  missed() {
+
+  }
+
+  touched() {
+    
   }
 }
 
-function setup() {
-  createCanvas(windowWidth/2, windowHeight);
-  background (255);
-  //canvas.center("horizontal");
-  w = width;
-  h = height;
-}
+tiles = []
 
-function draw() {
+function piano() {
   // framerate(30);
+  stroke(0);
   line(w/4, 0, w/4, h);
   line(2 * w/4, 0,2 * w/4, h);
   line(3 * w/4, 0, 3 * w/4, h);
-  line(0, 4 * h/5.5, width, 4 * h/5.5);
+  line(0, 4 * h/5.25, width, 4 * h/5.25);
+
+  if (tiles[tiles.length - 1].arrive()) {
+    tiles.push(new Tile(int(random(4))));
+  }
+
+  for (let i = 0; i < tiles.length; i++) {
+    tile.show();
+    tile.move();
+  }
+  tiles[0].show();
+  tiles[0].move();
 }
 
+function setup() {
+  let canvas = createCanvas(windowWidth/2, windowHeight);
+  canvas.center("horizontal");
+  background (240);
+  w = width;
+  h = height;
+  tiles.push(new Tile(int(random(4))));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let lineWidth = 3;
-// let w = 0;
-// let h = 0;
-
-// class Tile{
-//   constructor(lane,w,h){
-//     this.lane= lane;
-//     this.t=w;
-//     this.w = w/4 - 2;
-//     this.h = h/5;
-//     this.x = 1 + this.lane*w/4;
-//     this.y = 0;
-//     // this.speed = 10;
-//     // this.once = true;
-//     // this.trolled = false;
-//   }
-
-//   show() {
-//     push();
-//       translate(this.x, this.y);
-//       rectMode(CENTER);
-//       rect(this.w/2,this.h/2,r*this.w,r*this.h+a);
-//     pop();
-//   }
-// }
-
-// tiles = [];
-
-// function columns() {
-//   let w = width / 4 ;
-//   frameRate(30);
-//   strokeWeight(lineWidth);
-//   line(lineWidth, 0, lineWidth, height);
-//   line(w * 1, 0, w * 1, height);
-//   line(w * 2, 0, w * 2, height);
-//   line(w * 3, 0, w * 3, height);
-//   line(width - lineWidth, 0, width - lineWidth, height);
-//   line(0, 4 * height/5.5, width, 4 * height/5.5);
-//   tiles[0].show();
-// }
-
-
-// function setup() {
-//   let canvas = createCanvas(windowWidth/2, windowHeight);
-//   canvas.center("horizontal");
-//   columns();
-//   tiles.push(new Tile(0));
-//   // gameOver();
-// }
-
+function draw() {
+  piano()
+}
 
 // function gameOver() {
 //   noLoop();
@@ -117,6 +81,3 @@ function draw() {
 //   textSize(100);
 //   text("Try Again!", width / 2, height / 2);
 // }
-
-//https://www.youtube.com/watch?v=1Izg1eHFsUw
-//https://www.youtube.com/watch?v=554VpvX2m4E
