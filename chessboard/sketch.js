@@ -128,7 +128,7 @@ function mousePressed(){
 troll = false;
 
 function draw(){
-  frameRate(360);
+  frameRate(30);
   alpha = frameCount/200;
   varR = amp.getLevel();
   

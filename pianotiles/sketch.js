@@ -4,6 +4,9 @@
 
 let w = 0;
 let h = 0;
+let s = "play";
+let score = 0;
+let gameOver = false;
 
 class Tile{
   constructor(lane){
@@ -34,16 +37,15 @@ class Tile{
 
   }
 
-  touched() {
-    
+  touched(x, y) {
+    return ((x > this.x) && (x < this.x + this.w) && (y > this.y) && (y < y < this.y + this.h));
   }
 }
 
 tiles = []
 
 function piano() {
-  // framerate(30);
-  stroke(0);
+  stroke(255);
   line(w/4, 0, w/4, h);
   line(2 * w/4, 0,2 * w/4, h);
   line(3 * w/4, 0, 3 * w/4, h);
@@ -53,10 +55,10 @@ function piano() {
     tiles.push(new Tile(int(random(4))));
   }
 
-  for (let i = 0; i < tiles.length; i++) {
-    tile.show();
-    tile.move();
-  }
+  // for (let i = 0; i < tiles.length; i++) {
+  //   tile.show();
+  //   tile.move();
+  // }
   tiles[0].show();
   tiles[0].move();
 }
@@ -64,20 +66,32 @@ function piano() {
 function setup() {
   let canvas = createCanvas(windowWidth/2, windowHeight);
   canvas.center("horizontal");
-  background (240);
+  background (0);
   w = width;
   h = height;
   tiles.push(new Tile(int(random(4))));
 }
 
+// function text() {
+//   textSize(32);
+//   textAlign(CENTER);
+//   fill(col);
+//   text(s,width/2,32);
+//   text(score,width/2,64);
+// }
+
 function draw() {
+  frameRate(120);
   piano()
+
 }
 
-// function gameOver() {
-//   noLoop();
-//   fill(0);
-//   textAlign(CENTER);
-//   textSize(100);
-//   text("Try Again!", width / 2, height / 2);
-// }
+function mousePressed() {
+  if(tiles[0].touched(mouseX, mouseY)) {
+    score += 5;
+    tiles.splice(0, 1);
+  }
+
+  else gameOver = true;
+}
+
