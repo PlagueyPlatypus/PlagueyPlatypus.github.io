@@ -45,7 +45,7 @@ class Tile{
 tiles = []
 
 function piano() {
-  stroke(255);
+  stroke(0);
   line(w/4, 0, w/4, h);
   line(2 * w/4, 0,2 * w/4, h);
   line(3 * w/4, 0, 3 * w/4, h);
@@ -66,7 +66,7 @@ function piano() {
 function setup() {
   let canvas = createCanvas(windowWidth/2, windowHeight);
   canvas.center("horizontal");
-  background (0);
+  background (240);
   w = width;
   h = height;
   tiles.push(new Tile(int(random(4))));
