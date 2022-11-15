@@ -89,7 +89,7 @@ function piano() {
 function playAndScore() {
   textSize(28);
   textAlign(CENTER);
-  fill(255)
+  fill(255);
   text(s, w/2, 32);
   text(score, w/2, 64);
 }
