@@ -40,23 +40,30 @@ class Walker {
 }
 
 let michael;
-let katharine;
-let taran;
+
+let walkerArray = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  michael = new Walker(100, 50);
-  katharine = new Walker(200, 300);
-  katharine.color = "blue";
-  taran = new Walker(width - 150, height - 10);
-  taran.color = "green";
+  let michael = new Walker(random.width, height/2);
+  walkerArray.push(michael);
+
 }
 
 function draw() {
-  michael.move();
-  michael.display();
-  katharine.move();
-  katharine.display();
-  taran.move();
-  taran.display();
+  for (let i = 0; i < walkerArray.length; i++) {
+    michael.move();
+    michael.display();
+  }
+}
+
+function spawnWalker() {
+  let michael = new Walker(width/2, height/2);
+  let someColor = color(random(255), random(255), random(255));
+  michael.color = someColor;
+  walkerArray.push(michael);
+}
+
+function keyPressed() {
+  spawnWalker();
 }

@@ -48,7 +48,7 @@ function setup() {
   michael = new Walker(100, 50);
   katharine = new Walker(200, 300);
   katharine.color = "blue";
-  taran = new Walker(width - 150, height - 10);
+  taran = new Walker(width - 500, height - 500);
   taran.color = "green";
 }
 
