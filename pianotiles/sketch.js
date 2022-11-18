@@ -11,21 +11,26 @@ let gameOver = false;
 class Tile{
   constructor(lane){
     this.lane = lane;
-    this.color = "black";
     this.w = w/4 - 20; 
     this.h = h/4;
-    this.X = 10 + this.lane * w/4;
-    this.y = -2 * h; 
+    this.x = 10 + this.lane * w/4;
+    this.y = 0 - this.h; 
     this.speed = 6;
+    this.tap = false;
+    this.r = 0;
+    this.g = 0;
+    this.b = 0;
+    this.alpha = 255;
+    this.color = color(this.r, this.g, this.b, this.alpha);
   }
 
   show() {
     push() ;
-    translate(this.X, this.y);
+    // translate(this.x, this.y);
     stroke(this.color);
     fill(this.color); 
-    rectMode(CENTER);
-    rect(this.w/2, this.h/2, this.w, this.h);
+    // rectMode(CENTER);
+    rect(this.x, this.y, this.w, this.h);
   }
 
   move() {
@@ -33,7 +38,10 @@ class Tile{
   }
 
   arrive() {
-    return this.y > -this.h;
+    if(this.y > windowHeight){
+      print("tile arrived!");
+    }
+    return this.y > windowHeight;
   }
 
   missed() {
@@ -41,7 +49,7 @@ class Tile{
   }
 
   touched(x, y) {
-    return (x > this.x) && (x < this.x + this.w) && (y > this.y) && (y < this.y + this.h);
+    return x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h;
   }
 }
 
@@ -59,7 +67,8 @@ function setup() {
 function mousePressed() {
   if(tiles[0].touched(mouseX, mouseY)) {
     score += 5;
-    tiles.splice(0, 1);
+    tiles[0].alpha = 0;
+    print("tap");
   }
   else {
     gameOver = true;
@@ -74,12 +83,14 @@ function piano() {
   line(0, 4 * h/5.25, width, 4 * h/5.25);
 
   if (tiles[tiles.length - 1].arrive()) {
+    tiles.pop();
     tiles.push(new Tile(floor(random(4))));
   }
 
   for (let i = 0; i < tiles.length; i++) {
     tiles[i].show();
     tiles[i].move();
+    
   }
 
   tiles[0].show();

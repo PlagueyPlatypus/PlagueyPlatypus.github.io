@@ -8,9 +8,10 @@
 class Bullet {
   constructor(x, y) {
     this.x = 250;
+    // this.y = mouseY;
     this.y = random(windowHeight);
-    this.dx = 7; //random(-5, 5);
-    this.dy = 0; //random(-5, 5);
+    this.dx = 7;
+    this.dy = 0;
     this.diameter = 5;
     this.r = 255;
     this.g = 255;
@@ -22,10 +23,8 @@ class Bullet {
   update() {
     //move
     this.x += this.dx;
-    this.dx+= 2;
-    // this.y += this.dy;
+    this.dx += 2;
 
-    //making it more transparent
     this.alpha--;
   }
 
@@ -42,6 +41,7 @@ class Bullet {
 }
 
 let bullets = [];
+let autoplay = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
