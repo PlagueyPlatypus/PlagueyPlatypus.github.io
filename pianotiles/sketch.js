@@ -32,9 +32,9 @@ class Tile{
 
   move() {
     this.y += this.speed;
-    if (score === 25) {
-      this.speed += 1;
-    }
+  //   if (score >= 25) {
+  //     this.speed += 1;
+  //   }
   }
 
   arrive() {
@@ -67,7 +67,8 @@ function setup() {
 function mousePressed() {
   if(tiles[0].touched(mouseX, mouseY)) {
     score += 5;
-    tiles[0].alpha = 0;
+    // tiles[0].alpha = 127;
+    tiles[0].color = "grey";
     print("tap");
   }
   else {
@@ -101,6 +102,7 @@ function playAndScore() {
   textSize(28);
   textAlign(CENTER);
   fill(255);
+  noStroke();
   // text(s, w/2, 32);
   text(score, w/2, 64);
 }
