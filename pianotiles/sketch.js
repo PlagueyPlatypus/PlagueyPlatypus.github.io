@@ -4,7 +4,7 @@
 
 let w = 0;
 let h = 0;
-let s = "play";
+// let s = "play";
 let score = 0;
 let gameOver = false;
 
@@ -15,8 +15,7 @@ class Tile{
     this.h = h/4;
     this.x = 10 + this.lane * w/4;
     this.y = 0 - this.h; 
-    this.speed = 6;
-    this.tap = false;
+    this.speed = 5;
     this.r = 0;
     this.g = 0;
     this.b = 0;
@@ -26,15 +25,16 @@ class Tile{
 
   show() {
     push() ;
-    // translate(this.x, this.y);
     stroke(this.color);
     fill(this.color); 
-    // rectMode(CENTER);
     rect(this.x, this.y, this.w, this.h);
   }
 
   move() {
     this.y += this.speed;
+    if (score === 25) {
+      this.speed += 1;
+    }
   }
 
   arrive() {
@@ -101,7 +101,7 @@ function playAndScore() {
   textSize(28);
   textAlign(CENTER);
   fill(255);
-  text(s, w/2, 32);
+  // text(s, w/2, 32);
   text(score, w/2, 64);
 }
 
