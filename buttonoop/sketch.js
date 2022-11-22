@@ -34,10 +34,10 @@ let buttontwo = new Button(200, 500, 150, 75);
 
 function mousePressed() {
   if(buttonone.press(mouseX, mouseY)) {
-    print("tap");
+    print("beep");
   }
   if(buttontwo.press(mouseX, mouseY)) {
-    print("beep");
+    print("boop");
   }
 }
 
