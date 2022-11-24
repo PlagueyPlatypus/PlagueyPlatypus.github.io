@@ -31,7 +31,7 @@ class Tile{
     this.h = h/5;
     this.x = 1 + this.lane*w/4;
     this.y = -2*this.h;
-    this.speed = 10;
+    this.speed = 20;
     this.once = true;
     this.trolled = false;
   }

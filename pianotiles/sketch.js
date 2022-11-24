@@ -32,9 +32,7 @@ class Tile{
 
   move() {
     this.y += this.speed;
-  //   if (score >= 25) {
-  //     this.speed += 1;
-  //   }
+    this.speed = 5 + score/25;
   }
 
   arrive() {
@@ -45,7 +43,7 @@ class Tile{
   }
 
   missed() {
-
+    return this.y > 9 * this.h/2;
   }
 
   touched(x, y) {
@@ -67,7 +65,6 @@ function setup() {
 function mousePressed() {
   if(tiles[0].touched(mouseX, mouseY)) {
     score += 5;
-    // tiles[0].alpha = 127;
     tiles[0].color = "grey";
     print("tap");
   }
@@ -88,10 +85,15 @@ function piano() {
     tiles.push(new Tile(floor(random(4))));
   }
 
+  if(tiles[0].missed()) {
+    gameOver = true;
+    print("game over");
+  }
+
   for (let i = 0; i < tiles.length; i++) {
     tiles[i].show();
     tiles[i].move();
-    
+    tiles[i].missed();
   }
 
   tiles[0].show();
