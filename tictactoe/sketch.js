@@ -123,5 +123,4 @@ function draw() {
   else {
     nextTurn();
   }
-
 }

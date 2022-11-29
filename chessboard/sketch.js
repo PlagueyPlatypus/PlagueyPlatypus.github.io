@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Chessboard
 // Sadique
 // Sept 19, 2022
@@ -11,17 +12,16 @@ let col = 0;
 
 let now = 0;
 let prv = 0;
-
-let alpha=0;
+let troll = false;
 
 function preload() {
-  soundFormats('mp3', 'ogg');
-  //mySound = loadSound('https://dl.dropbox.com/s/uuh53peopd55oe1/DEAD.mp3?');
+  soundFormats("mp3", "ogg");
+  //mySound = loadSound("https://dl.dropbox.com/s/uuh53peopd55oe1/DEAD.mp3?");
 }
 
 
 let score = 0;
-let s = 'play';
+let s = "play";
 
 class Tile{
   constructor(lane,w,h){
@@ -37,14 +37,14 @@ class Tile{
   }
   
   move(r,a){
-      this.y+=r*this.speed+a;
+    this.y+=r*this.speed+a;
       
-      if(this.y>5*this.h/2 && troll && !this.trolled){
-        this.trolled = true;
-        this.speed = 4;
-        this.lane = 3 - this.lane;
-        this.x = 1 + this.lane*this.t/4;
-      }
+    if(this.y>5*this.h/2 && troll && !this.trolled){
+      this.trolled = true;
+      this.speed = 4;
+      this.lane = 3 - this.lane;
+      this.x = 1 + this.lane*this.t/4;
+    }
   }
   
   touched(x,y,a){
@@ -52,31 +52,31 @@ class Tile{
     textSize(32);
     textAlign(CENTER);
     fill(0);
-    if((x>this.x) && (x<this.x+this.w) && (y>this.y) && (y<this.y+this.h+a)){
+    if(x>this.x && x<this.x+this.w && y>this.y && y<this.y+this.h+a){
       if(this.y<this.h/2){
         score+=1;
-        s = 'lame';
+        s = "lame";
       }
       else if(this.y<3*this.h/2){
         score+=2;
-        s = 'not bad';
+        s = "not bad";
       }
       else if(this.y<5*this.h/2){
         score+=3;
-        s = 'nice';
+        s = "nice";
       }
       else if(this.y<7*this.h/2){
         score+=4;
-        s = 'super';
+        s = "super";
       }
       else if(this.y<9*this.h/2){
         score+=5;
-        s = 'you rock';
+        s = "you rock";
       }
       return true;
     }
     else {
-      s = 'LMAO';
+      s = "LMAO";
       return false;
     }
   }
@@ -94,12 +94,12 @@ class Tile{
   }
   
   show(r,a){
-      fill(255-col);
-      push();
-        translate(this.x,this.y);
-        rectMode(CENTER);
-        rect(this.w/2,this.h/2,r*this.w,r*this.h+a);
-      pop();
+    fill(255-col);
+    push();
+    translate(this.x,this.y);
+    rectMode(CENTER);
+    rect(this.w/2,this.h/2,r*this.w,r*this.h+a);
+    pop();
   }
 }
 
@@ -121,7 +121,9 @@ function mousePressed(){
   if(tiles[0].touched(mouseX,mouseY,alpha)){
     tiles.splice(0,1);
   }
-  else gameOver = true;
+  else {
+    gameOver = true;
+  }
 }
   
 
@@ -135,8 +137,10 @@ function draw(){
   if(tiles[tiles.length-1].ding()){
     prv = now;
     now = int(random(4));
-    if(now===prv)
+    if(now===prv) {
       count++;
+    }
+
     if(count===3){
       now = 3 - now;
       count = 0;
@@ -146,32 +150,41 @@ function draw(){
   
   for(tile of tiles){
     if(tile.dong()){
-      s = 'shabash';
+      s = "shabash";
       gameOver=true;
     }
   }
   
-  if(score<100)
+  if(score<100) {
     col=0;
-  else if(score<200)
+  }
+  else if(score<200) {
     col=255;
-  else if(score<300)
+  }
+  else if(score<300) {
     col=0;
-  else if(score<400)
+  }
+  else if(score<400) {
     col=255;
-  else if(score<500)
+  }
+  else if(score<500) {
     col=0;
-  else
+  }
+  else {
     col=255;
-    
-  if(score>250)
+  }
+
+  if(score>250) {
     troll = true;
+  }
   
   if(varR<0.2){
     varR = 0.8;
   } 
-  else varR = map(varR,0.4,1,0.8,1);
-  
+  else {
+    varR = map(varR,0.4,1,0.8,1);
+  }
+
   background(col,200);
   stroke(100);
   line(1*width/4,0,1*width/4,height);
@@ -193,20 +206,21 @@ function draw(){
   text(s,width/2,32);
   text(score,width/2,64);
   
-  if(score>=600) 
+  if(score>=600) {
     gameWon = true;
-  
+  }
+
   if(gameOver){
     //mySound.stop();
     textSize(50);
-    text('LOL YOU LOST',width/2,height/2);
+    text("LOL YOU LOST",width/2,height/2);
   }
   if(gameWon){
     //mySound.stop();
     textSize(50);
     background(col);
-    text('YOU KILLED IT',width/2,height/2);
-    text('YOU WON',width/2,height/2+50);
-    text('score: '+score,width/2,height/2+100);
+    text("YOU KILLED IT",width/2,height/2);
+    text("YOU WON",width/2,height/2+50);
+    text("score: "+score,width/2,height/2+100);
   }
 }
