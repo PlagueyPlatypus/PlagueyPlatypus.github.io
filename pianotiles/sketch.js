@@ -8,7 +8,7 @@ let h = 0;
 let score = 0;
 let gameOver = false;
 
-class Tile{
+class Tile {
   constructor(lane){
     this.lane = lane;
     this.w = w/4 - 20; 
@@ -73,6 +73,15 @@ function mousePressed() {
   }
 }
 
+function playAndScore() {
+  textSize(28);
+  textAlign(CENTER);
+  fill(255);
+  noStroke();
+  // text(s, w/2, 32);
+  text(score, w/2, 64);
+}
+
 function piano() {
   stroke(0);
   line(w/4, 0, w/4, h);
@@ -91,22 +100,14 @@ function piano() {
   }
 
   for (let i = 0; i < tiles.length; i++) {
-    tiles[i].show();
-    tiles[i].move();
-    tiles[i].missed();
+    if(!gameOver) {
+      tiles[i].show();
+      tiles[i].move();
+    }
   }
 
   tiles[0].show();
   tiles[0].move();
-}
-
-function playAndScore() {
-  textSize(28);
-  textAlign(CENTER);
-  fill(255);
-  noStroke();
-  // text(s, w/2, 32);
-  text(score, w/2, 64);
 }
 
 function draw() {
