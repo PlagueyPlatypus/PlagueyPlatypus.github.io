@@ -82,6 +82,29 @@ function playAndScore() {
   text(score, w/2, 64);
 }
 
+function keypressed() {
+  if (key === "a") {
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+  if (key === "s") {
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+  if (key === "k") {
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+  if (key === "l"){
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+}
+
 function piano() {
   stroke(0);
   line(w/4, 0, w/4, h);
@@ -100,10 +123,8 @@ function piano() {
   }
 
   for (let i = 0; i < tiles.length; i++) {
-    if(!gameOver) {
       tiles[i].show();
       tiles[i].move();
-    }
   }
 
   tiles[0].show();
