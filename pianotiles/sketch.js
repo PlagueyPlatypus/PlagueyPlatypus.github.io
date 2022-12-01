@@ -62,7 +62,7 @@ function setup() {
   tiles.push(new Tile(floor(random(4))));
 }
 
-function mousePressed() {
+function whenPressed(){
   if(tiles[0].touched(mouseX, mouseY)) {
     score += 5;
     tiles[0].color = "grey";
@@ -73,6 +73,31 @@ function mousePressed() {
   }
 }
 
+function mousePressed() {
+  whenPressed();
+}
+
+function keypressed() {
+  if (key === 65) {
+    print("tap");
+  }
+  if (key === 83) {
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+  if (key === 75) {
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+  if (key === 76){
+    score += 5;
+    tiles[0].color = "grey";
+    print("tap");
+  }
+}
+
 function playAndScore() {
   textSize(28);
   textAlign(CENTER);
@@ -80,29 +105,6 @@ function playAndScore() {
   noStroke();
   // text(s, w/2, 32);
   text(score, w/2, 64);
-}
-
-function keypressed() {
-  if (key === "a") {
-    score += 5;
-    tiles[0].color = "grey";
-    print("tap");
-  }
-  if (key === "s") {
-    score += 5;
-    tiles[0].color = "grey";
-    print("tap");
-  }
-  if (key === "k") {
-    score += 5;
-    tiles[0].color = "grey";
-    print("tap");
-  }
-  if (key === "l"){
-    score += 5;
-    tiles[0].color = "grey";
-    print("tap");
-  }
 }
 
 function piano() {
@@ -123,8 +125,8 @@ function piano() {
   }
 
   for (let i = 0; i < tiles.length; i++) {
-      tiles[i].show();
-      tiles[i].move();
+    tiles[i].show();
+    tiles[i].move();
   }
 
   tiles[0].show();
