@@ -81,16 +81,19 @@ function keypressed() {
   if (key === 65) {
     print("tap");
   }
+
   if (key === 83) {
     score += 5;
     tiles[0].color = "grey";
     print("tap");
   }
+
   if (key === 75) {
     score += 5;
     tiles[0].color = "grey";
     print("tap");
   }
+  
   if (key === 76){
     score += 5;
     tiles[0].color = "grey";
