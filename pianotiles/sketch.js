@@ -4,10 +4,9 @@
 
 let w = 0;
 let h = 0;
-// let s = "play";
+let script = "play";
 let score = 0;
 let gameOver = false;
-
 
 class Tile {
   constructor(lane){
@@ -107,7 +106,7 @@ function playAndScore() {
   textAlign(CENTER);
   fill(255);
   noStroke();
-  // text(s, w/2, 32);
+  text(script, w/2, 32);
   text(score, w/2, 64);
 }
 
