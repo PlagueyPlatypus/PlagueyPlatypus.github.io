@@ -5,85 +5,88 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let grid = [
-  [" ", " ", " "],
-  [" ", " ", " "],
-  [" ", " ", " "],
+let graph = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""]
 ];
 
-let players = ["X", "O"];
+let w;
+let h;
 
-let playerTurn;
-let empty = [];
+let bot = "X";
+let player = "O";
+let currentPlayer = player;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight - 100);
-  playerTurn = floor(random(players.length));
-  for (let x = 0; x < 3; x++) {
-    for (let y = 0; y < 3; y++) {
-      empty.push([x, y]);
-    }
-  }
+  createCanvas(windowWidth, windowHeight);
+  w = width / 3;
+  h = height / 3;
 }
 
-function equals3(a, b, c) {
-  return a === b && b === c && a !== " ";
+function inARow(a, b, c) {
+  return a === b && b === c && a != "";
 }
 
 function checkWinner() {
   let winner = null;
 
-  //Horizontal
+  // Horizontal
   for (let i = 0; i < 3; i++) {
-    if (equals3(grid[i][0], grid[i][1], grid[i][2])) {
-      winner = grid[i][0];
+    if (inARow(graph[i][0], graph[i][1], graph[i][2])) {
+      winner = graph[i][0];
     }
   }
 
-  //Vertical
+  // Vertical
   for (let i = 0; i < 3; i++) {
-    if (equals3(grid[0][i], grid[1][i], grid[2][i])) {
-      winner = grid[0][i];
+    if (inARow(graph[0][i], graph[1][i], graph[2][i])) {
+      winner = graph[0][i];
     }
   }
 
-  //Diagonal
-  if (equals3(grid[0][0], grid[1][1], grid[2][2])) {
-    winner = grid[0][0];
+  // Diagonal
+  if (inARow(graph[0][0], graph[1][1], graph[2][2])) {
+    winner = graph[0][0];
   }
-  if (equals3(grid[2][0], grid[1][1], grid[0][2])) {
-    winner = grid[2][0];
+  if (inARow(graph[2][0], graph[1][1], graph[0][2])) {
+    winner = graph[2][0];
   }
 
-  if (winner === null && empty.length === 0) {
+  let empty = 0;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (graph[i][j] === "") {
+        empty++;
+      }
+    }
+  }
+
+  if (winner === null && empty === 0) {
     return "tie";
-  } 
-  else {
+  } else {
     return winner;
   }
-
 }
 
-function nextTurn() {
-  let index = floor(random(empty.length));
-  let spot = empty.splice(index, 1)[0];
-  let i = spot[0];
-  let j = spot[1];
-  grid[i][j] = players[playerTurn];
-  playerTurn = (playerTurn + 1) % players.length;
+function mousePressed() {
+  if (currentPlayer === player) {
+    // player make turn
+    let i = floor(mouseX / w);
+    let j = floor(mouseY / h);
+    // If valid turn
+    if (graph[i][j] === "") {
+      graph[i][j] = player;
+      currentPlayer = bot;
+      bestMove();
+    }
+  }
 }
-
-// function mousePressed() {
-//   nextTurn(); 
-// }
 
 function draw() {
   background(255);
-  let w = width / 3;
-  let h = height / 3;
   strokeWeight(4);
 
-  //Lines For the Grid
   line(w, 0, w, height);
   line(w * 2, 0, w * 2, height);
   line(0, h, width, h);
@@ -93,34 +96,28 @@ function draw() {
     for (let i = 0; i < 3; i++) {
       let x = w * i + w / 2;
       let y = h * j + h / 2;
-      let spot = grid[i][j];
+      let spot = graph[i][j];
       textSize(32);
-      if (spot === players[1]) {
+      let r = w / 4;
+      if (spot === player) {
         noFill();
-        ellipse(x, y, w / 2);
-      } 
-      else if (spot === players[0]) {
-        let xr = w / 4;
-        line(x - xr, y - xr, x + xr, y + xr);
-        line(x + xr, y - xr, x - xr, y + xr);
+        ellipse(x, y, r * 2);
+      } else if (spot === bot) {
+        line(x - r, y - r, x + r, y + r);
+        line(x + r, y - r, x - r, y + r);
       }
-
     }
   }
 
   let result = checkWinner();
-  if (result !== null) {
+  if (result != null) {
     noLoop();
-    let resultP = createP(" ");
-    resultP.style("font-size", "32pt");
+    let results = createP("");
+    results.style("font-size", "32pt");
     if (result === "tie") {
-      resultP.text("Tie!");
-    } 
-    else {
-      resultP.html(`${result} wins!`);
+      results.html("Tie!");
+    } else {
+      results.html(`${result} wins!`);
     }
-  } 
-  else {
-    nextTurn();
   }
 }
