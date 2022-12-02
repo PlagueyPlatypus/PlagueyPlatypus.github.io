@@ -8,6 +8,7 @@ let h = 0;
 let score = 0;
 let gameOver = false;
 
+
 class Tile {
   constructor(lane){
     this.lane = lane;
