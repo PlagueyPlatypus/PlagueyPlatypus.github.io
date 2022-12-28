@@ -77,7 +77,7 @@ function mousePressed() {
   whenPressed();
 }
 
-function keypressed() {
+function keyPressed() {
   if (key === 65) {
     print("tap");
   }
@@ -108,6 +108,14 @@ function playAndScore() {
   noStroke();
   text(script, w/2, 32);
   text(score, w/2, 64);
+}
+
+function gameoverText() {
+  if(gameOver){
+    textSize(50);
+    text("YOU GOT TO",width/2,height/2+50);
+    text("score: "+score,width/2,height/2+100);
+  }
 }
 
 function piano() {
