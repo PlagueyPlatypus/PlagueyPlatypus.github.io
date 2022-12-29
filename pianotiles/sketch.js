@@ -32,7 +32,6 @@ class Tile {
 
   move() {
     this.y += this.speed;
-    this.speed = 5 + score/25;
   }
 
   arrive() {

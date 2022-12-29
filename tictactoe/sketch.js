@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let graph = [
+let grid = [
   ["", "", ""],
   ["", "", ""],
   ["", "", ""]
@@ -28,42 +28,43 @@ function inARow(a, b, c) {
   return a === b && b === c && a != "";
 }
 
+// Checking Who Won
 function checkWinner() {
   let winner = null;
 
   // Horizontal
   for (let i = 0; i < 3; i++) {
-    if (inARow(graph[i][0], graph[i][1], graph[i][2])) {
-      winner = graph[i][0];
+    if (inARow(grid[i][0], grid[i][1], grid[i][2])) {
+      winner = grid[i][0];
     }
   }
 
   // Vertical
   for (let i = 0; i < 3; i++) {
-    if (inARow(graph[0][i], graph[1][i], graph[2][i])) {
-      winner = graph[0][i];
+    if (inARow(grid[0][i], grid[1][i], grid[2][i])) {
+      winner = grid[0][i];
     }
   }
 
   // Diagonal
-  if (inARow(graph[0][0], graph[1][1], graph[2][2])) {
-    winner = graph[0][0];
+  if (inARow(grid[0][0], grid[1][1], grid[2][2])) {
+    winner = grid[0][0];
   }
-  if (inARow(graph[2][0], graph[1][1], graph[0][2])) {
-    winner = graph[2][0];
+  if (inARow(grid[2][0], grid[1][1], grid[0][2])) {
+    winner = grid[2][0];
   }
 
+  // Indicating which spots are "empty"
   let empty = 0;
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      if (graph[i][j] === "") {
+      if (grid[i][j] === "") {
         empty++;
       }
     }
   }
 
   if (winner === null && empty === 0) {
-    return "tie";
   } else {
     return winner;
   }
@@ -75,49 +76,52 @@ function mousePressed() {
     let i = floor(mouseX / w);
     let j = floor(mouseY / h);
     // If valid turn
-    if (graph[i][j] === "") {
-      graph[i][j] = player;
+    if (grid[i][j] === "") {
+      grid[i][j] = player;
       currentPlayer = bot;
-      bestMove();
     }
   }
 }
 
-function draw() {
-  background(255);
-  strokeWeight(4);
-
+// Drawing the Grid
+function createGrid() {
+  strokeWeight(5);
   line(w, 0, w, height);
   line(w * 2, 0, w * 2, height);
   line(0, h, width, h);
-  line(0, h * 2, width, h * 2);
+  line(0, h * 2, width, h * 2);  
+}
 
+function draw() {
+  background("white");
+  createGrid();
   for (let j = 0; j < 3; j++) {
     for (let i = 0; i < 3; i++) {
       let x = w * i + w / 2;
       let y = h * j + h / 2;
-      let spot = graph[i][j];
+      let spot = grid[i][j];
       textSize(32);
       let r = w / 4;
       if (spot === player) {
-        noFill();
-        ellipse(x, y, r * 2);
-      } else if (spot === bot) {
+        circle(x, y, r * 2);
+      }
+      
+      else if (spot === bot) {
         line(x - r, y - r, x + r, y + r);
         line(x + r, y - r, x - r, y + r);
       }
     }
   }
 
-  let result = checkWinner();
-  if (result != null) {
-    noLoop();
-    let results = createP("");
-    results.style("font-size", "32pt");
-    if (result === "tie") {
-      results.html("Tie!");
-    } else {
-      results.html(`${result} wins!`);
-    }
-  }
+  // let result = checkWinner();
+  // if (result != null) {
+  //   noLoop();
+  //   let results = createP("");
+  //   results.style("font-size", "32pt");
+  //   if (result === "tie") {
+  //     results.html("Tie!");
+  //   } else {
+  //     results.html(`${result} wins!`);
+  //   }
+  // }
 }
